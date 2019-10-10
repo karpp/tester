@@ -18,9 +18,6 @@ for test in ALL_TESTS:
     test = test.split('\n\n')
     test[0] = test[0].strip()
     test[1] = test[1].strip()
-    nowtest = open('.test.txt', 'w')
-    nowtest.write(test[0])
-    nowtest.close()
 
     start_time = time()
 
@@ -66,4 +63,3 @@ for test in ALL_TESTS:
             print('Found:')
             print(result)
 
-os.remove('.test.txt')
