@@ -1,18 +1,19 @@
-from test_config import target, tests, time_limit, print_failed_tests
+import os
+import sys
+import subprocess
 from time import time
 from checker import check
-import os
-import subprocess
+from test_config import target, tests, time_limit, print_failed_tests
 
 
-tests_file = open(tests, 'r')
-all_tests = tests_file.read().split('===')
-tests_file.close()
+TESTS_FILE = open(tests, 'r')
+ALL_TESTS = TESTS_FILE.read().split('===')
+TESTS_FILE.close()
 cnt = 0
 
-for test in all_tests:
+for test in ALL_TESTS:
     print('Case {}:'.format(cnt), end=' ')
-    cnt += 1
+    cnt = cnt + 1
 
     test = test.split('\n\n')
     test[0] = test[0].strip()
@@ -21,10 +22,12 @@ for test in all_tests:
     nowtest.write(test[0])
     nowtest.close()
 
+    start_time = time()
+
     try:
         start_time = time()
         res = subprocess.run(
-            ['python3', target, '< test.txt'],
+            [sys.executable, target],
             input=test[0].strip().encode(),
             timeout=time_limit,
             stdout=subprocess.PIPE,
