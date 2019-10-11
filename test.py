@@ -8,6 +8,7 @@ from test_config import target, tests, time_limit, print_failed_tests
 
 TESTS_FILE = open(tests, 'r')
 ALL_TESTS = TESTS_FILE.read().split('===')
+ALL_TESTS = [test for test in ALL_TESTS if test != '']
 TESTS_FILE.close()
 cnt = 0
 
