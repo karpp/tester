@@ -2,17 +2,16 @@ import sys
 import subprocess
 from time import time
 from testing.checker import check
-from testing.download import iter_test_inputs_and_outputs
+from testing.download import iter_tests
+from testing.local_tests import load_local_tests
+from testing.tests import Test
 
 
-def test(target, tests, time_limit, print_failed_tests, use_online_tests,
-         use_offline_tests, contest_num, task_name):
+def test(target, manual_tests_dir, time_limit, print_failed_tests, use_online_tests,
+         contest_num, task_name):
     cnt = 0
-    if use_offline_tests:
-        tests_file = open(tests, 'r')
-        all_tests = tests_file.read().split('===')
-        all_tests = [cur_test for cur_test in all_tests if cur_test != '']
-        tests_file.close()
+    if manual_tests_dir:
+        all_tests = load_local_tests(manual_tests_dir, str(contest_num), task_name)
 
         for cur_test in all_tests:
             print('Case {}:'.format(cnt), end=' ')
@@ -69,13 +68,9 @@ def test(target, tests, time_limit, print_failed_tests, use_online_tests,
             print()
 
     if use_online_tests:
-        for cur_test in iter_test_inputs_and_outputs(contest_num, task_name):
+        for cur_test in iter_tests(contest_num, task_name):
             print('Case {} (shared):'.format(cnt), end=' ')
             cnt = cnt + 1
-
-            cur_test = list(cur_test)
-            cur_test[0] = cur_test[0].strip()
-            cur_test[1] = cur_test[1].strip()
 
             start_time = time()
 
@@ -83,7 +78,7 @@ def test(target, tests, time_limit, print_failed_tests, use_online_tests,
                 start_time = time()
                 res = subprocess.run(
                     [sys.executable, target],
-                    input=cur_test[0].strip().encode(),
+                    input=cur_test.input_text.strip().encode(),
                     timeout=time_limit,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE)
@@ -95,7 +90,7 @@ def test(target, tests, time_limit, print_failed_tests, use_online_tests,
 
                 if print_failed_tests:
                     print('Test:')
-                    print(cur_test[0])
+                    print(cur_test.input_text)
                     print()
 
                 continue
@@ -107,29 +102,29 @@ def test(target, tests, time_limit, print_failed_tests, use_online_tests,
                 print(res.stderr.decode('utf-8'))
                 if print_failed_tests:
                     print('Test:')
-                    print(cur_test[0])
+                    print(cur_test.input_text)
 
-            elif check(result, cur_test[1]):
+            elif check(result, cur_test.output_text):
                 print('OK ({:.2f}s)'.format(total_time))
 
             else:
                 print('WA ({:.2f}s)'.format(total_time))
                 if print_failed_tests:
                     print('Test:')
-                    print(cur_test[0])
+                    print(cur_test.input_text)
                     print('Expected:')
-                    print(cur_test[1].strip())
+                    print(cur_test.output_text.strip())
                     print('Found:')
                     print(result)
             print()
 
 
 def main():
-    from run_tests import target, tests, time_limit, print_failed_tests, \
-        use_online_tests, use_offline_tests, contest_num, task_name
+    from run_tests import target, manual_tests_dir, time_limit, print_failed_tests, \
+        use_online_tests, contest_num, task_name
 
-    test(target, tests, time_limit, print_failed_tests,
-         use_online_tests, use_offline_tests, contest_num, task_name)
+    test(target, manual_tests_dir, time_limit, print_failed_tests,
+         use_online_tests, contest_num, task_name)
 
 
 if __name__ == '__main__':

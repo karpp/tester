@@ -1,29 +1,33 @@
-from run_tests import tests
-# tests = 'test.txt'
-f = open(tests, 'a')
+from tests import Test
 
-while True:
+
+def input_test() -> Test:
     print('Введите тест. Когда тест закончится, введите пустую строку.')
-    test = ''
+    input_text = ''
     s = input()
     while s:
-        test += s + '\n'
+        input_text += s + '\n'
         s = input()
 
-    f.write(test)
-    f.write('\n')
-
-    ans = ''
+    output_text = ''
     print('Введите ответ. Когда ответ закончится, введите пустую строку.')
     s = input()
     while s:
-        ans += s + '\n'
+        output_text += s + '\n'
         s = input()
 
-    f.write(ans + '===\n')
+    return Test(input_text=input_text, output_text=output_text)
 
-    cont = input('Вы хотите добавить еще? (y/n): ')
-    if cont.lower() == 'n':
-        break
 
-print('Спасибо, что пользуетесь тестилкой!')
+def input_tests() -> List[Test]:
+    tests = []
+    while True:
+        tests.append(input_test())
+            
+        cont = input('Вы хотите добавить еще? (y/n): ')
+        if cont.lower() == 'n':
+            break
+
+    print('Спасибо, что пользуетесь тестилкой!')
+    
+    return tests
