@@ -1,4 +1,26 @@
-from tests import Test
+import argparse
+
+from lib.local_tests import save_tests, load_tests
+from lib.test import Test
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--manual-tests-dir', '-m', './manual_tests')
+    parser.add_argument('--contest', '-c', required=True)
+    parser.add_argument('--problem', '-p', required=True)
+
+    return parser.parse_args()
+
+
+def add_manual_test(manual_tests_dir, contest, problem):
+    pass
+
+
+def main():
+    args = parse_args()
+
+    add_manual_test(args.manual_tests_dir, args.contest, args.problem)
 
 
 def input_test() -> Test:
@@ -31,3 +53,7 @@ def input_tests() -> List[Test]:
     print('Спасибо, что пользуетесь тестилкой!')
     
     return tests
+
+
+if __name__ == '__main__':
+    main()
