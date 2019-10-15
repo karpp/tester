@@ -2,7 +2,7 @@ import requests
 import csv
 import os
 
-from lib.tests import Test
+from lib.test import Test
 
 
 COMMON_192_2_URL = 'https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/export?format=csv&id=1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc&gid=1092659262'

@@ -3,12 +3,12 @@ import subprocess
 from dataclasses import dataclass
 from time import time
 
-from lib.tests import Test
+from lib.test import Test
 
 
 @dataclass
 class Result:
-    error_str: str,
+    error_str: str
     duration: float
 
 
@@ -31,7 +31,7 @@ def run_test(target: str, test: Test, time_limit: float) -> Result:
     if res.returncode != 0:
         return Result('RE\n' + res.stderr.decode('utf-8'), total_time)
 
-    elif result != test.output_text:
+    elif result == test.output_text:
         return Result('', total_time)
 
-    return Result(f'WA\n{result}', total_time)
+    return Result(f'WA\nGot:\n{result}', total_time)

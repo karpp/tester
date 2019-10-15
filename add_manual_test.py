@@ -1,4 +1,5 @@
 import argparse
+from typing import List
 
 from lib.local_tests import save_tests, load_tests
 from lib.test import Test
@@ -6,7 +7,7 @@ from lib.test import Test
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--manual-tests-dir', '-m', './manual_tests')
+    parser.add_argument('--manual-tests-dir', '-m', default='./manual_tests')
     parser.add_argument('--contest', '-c', required=True)
     parser.add_argument('--problem', '-p', required=True)
 
@@ -14,7 +15,11 @@ def parse_args():
 
 
 def add_manual_test(manual_tests_dir, contest, problem):
-    pass
+    old_tests = load_tests(manual_tests_dir, contest, problem)
+
+    new_tests = input_tests()
+
+    save_tests(manual_tests_dir, contest, problem, old_tests + new_tests)
 
 
 def main():
@@ -38,7 +43,7 @@ def input_test() -> Test:
         output_text += s + '\n'
         s = input()
 
-    return Test(input_text=input_text, output_text=output_text)
+    return Test(input_text=input_text.strip(), output_text=output_text.strip())
 
 
 def input_tests() -> List[Test]:
