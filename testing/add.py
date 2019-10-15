@@ -1,4 +1,4 @@
-from test_config import tests
+from run_tests import tests
 # tests = 'test.txt'
 f = open(tests, 'a')
 
