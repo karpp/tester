@@ -1,6 +1,6 @@
 import argparse
 
-from lib.google_sheet_tests import COMMON_192_2_URL
+from lib.google_sheet import COMMON_192_2_URL
 from lib.run_all import run_all
 
 

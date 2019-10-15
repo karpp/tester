@@ -2,7 +2,7 @@ import argparse
 import sys
 from typing import List
 
-from lib.local_tests import save_tests, load_tests
+from lib.local import save_tests, load_tests
 from lib.test import Test
 
 

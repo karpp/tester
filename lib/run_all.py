@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from lib import local_tests, google_sheet_tests
+from lib import local, google_sheet
 from lib.run_tests import run_tests
 
 
@@ -16,13 +16,13 @@ def run_all(target, time_limit, manual_tests_dir, google_sheet_url, contest, pro
     if manual_tests_dir:
         label_tests_pairs.append((
             'Manual', 
-            local_tests.load_tests(manual_tests_dir, contest, problem)
+            local.load_tests(manual_tests_dir, contest, problem)
         ))
 
     if google_sheet_url:
         label_tests_pairs.append((
             'GoogleSheet', 
-            google_sheet_tests.load_tests(google_sheet_url, contest, problem)
+            google_sheet.load_tests(google_sheet_url, contest, problem)
         ))
 
     for label, tests in label_tests_pairs:
