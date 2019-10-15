@@ -7,6 +7,10 @@
 программу на них. Чтобы это происходило, установите в настройках правильный
 номер контеста, название задачи и убедитесь, что установлено `use_online_tests=True`.
 
+*Актуальный набор общих тестов находится [здесь](https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/).*
+
+*Если у Вас есть крутой тест и Вы хотите им поделиться со всеми, добавьте его [через форму](https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/).*
+
 В файле `tests.txt` лежат тесты в формате:
 
 ```
