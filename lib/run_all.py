@@ -2,12 +2,12 @@ import sys
 import subprocess
 from dataclasses import dataclass
 from time import time
-from testing.checker import check
-from testing.download import iter_tests
-from testing.local_tests import load_local_tests
-from testing import cached_tests
-from testing.tests import Test
-from testing.run_tests import run_tests as run_tests_general
+from lib.checker import check
+from lib.download import iter_tests
+from lib.local_tests import load_local_tests
+from lib import cached_tests
+from lib.tests import Test
+from lib.run_tests import run_tests as run_tests_general
 
 
 def print_result(text):
@@ -15,7 +15,7 @@ def print_result(text):
     print(f'╔{"═" * w}╗\n║{" " * w}║\n║   {text}   ║\n║{" " * w}║\n╚{"═" * w}╝')
 
 
-def test(target, time_limit, manual_tests_dir, google_sheets_url, contest, problem):
+def run_all(target, time_limit, manual_tests_dir, google_sheets_url, contest, problem):
     if manual_tests_dir:
         manual_tests = load_local_tests(manual_tests_dir, contest, problem)
 
@@ -31,13 +31,3 @@ def test(target, time_limit, manual_tests_dir, google_sheets_url, contest, probl
             return
 
     print_result('OK')
-
-
-def main():
-    from run_tests import target, manual_tests_dir, time_limit, google_sheet_url, contest, problem
-
-    test(target, time_limit, time_limit, google_sheet_url, contest, problem)
-
-
-if __name__ == '__main__':
-    main()

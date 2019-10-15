@@ -2,14 +2,15 @@ import requests
 import csv
 import os
 
-from tests import Test
+from lib.tests import Test
 
 
-DEFAULT_URL = 'https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/export?format=csv&id=1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc&gid=1092659262'
+COMMON_192_2_URL = 'https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/export?format=csv&id=1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc&gid=1092659262'
 
 
-def iter_tests(target_contest, target_problem):
-    file = requests.get(DEFAULT_URL).text
+def load_tests(url, target_contest, target_problem):
+    tests = []
+    file = requests.get(url).text
     temp_csv = open('.temp.csv', 'w')
     temp_csv.write(file)
     temp_csv.close()
@@ -22,6 +23,8 @@ def iter_tests(target_contest, target_problem):
             contest, problem, input_, output = line
 
         if contest == target_contest and problem == target_problem:
-            yield Test(input_text=input_, output_text=output)
+            tests.append(Test(input_text=input_, output_text=output))
     temp_csv.close()
     os.remove('.temp.csv')
+
+    return tests
