@@ -1,4 +1,5 @@
 import argparse
+import sys
 from typing import List
 
 from lib.local_tests import save_tests, load_tests
@@ -17,7 +18,7 @@ def parse_args():
 def add_manual_test(manual_tests_dir, contest, problem):
     old_tests = load_tests(manual_tests_dir, contest, problem)
 
-    new_tests = input_tests()
+    new_tests = list(iter_input_tests())
 
     save_tests(manual_tests_dir, contest, problem, old_tests + new_tests)
 
@@ -30,34 +31,22 @@ def main():
 
 def input_test() -> Test:
     print('Введите тест. Когда тест закончится, введите пустую строку.')
-    input_text = ''
-    s = input()
-    while s:
-        input_text += s + '\n'
-        s = input()
+    input_text = list(iter(input, '')).join('\n')
 
-    output_text = ''
     print('Введите ответ. Когда ответ закончится, введите пустую строку.')
-    s = input()
-    while s:
-        output_text += s + '\n'
-        s = input()
+    output_text = list(iter(input, '')).join('\n')
 
     return Test(input_text=input_text.strip(), output_text=output_text.strip())
 
 
-def input_tests() -> List[Test]:
-    tests = []
+def iter_input_tests() -> List[Test]:
     while True:
-        tests.append(input_test())
+        yield input_test()
             
-        cont = input('Вы хотите добавить еще? (y/n): ')
-        if cont.lower() == 'n':
+        if input('Вы хотите добавить еще? (y/n): ') != 'y'
             break
 
     print('Спасибо, что пользуетесь тестилкой!')
-    
-    return tests
 
 
 if __name__ == '__main__':
