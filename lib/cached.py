@@ -1,11 +1,12 @@
+# Unused module
 from typing import Callable, List
 
-import local
-from test import Test
+from lib import local
+from lib.test import Test
 
 
 def load_tests(tests_dir: str, contest: str, problem: str, reload_: bool,
-                     get_tests: Callable[[str, str] -> List[Test]]) -> List[Test]:
+                     get_tests: Callable[[str, str], List[Test]]) -> List[Test]:
     if not reload_:
         tests = local.load_tests(tests_dir, contest, problem)
         if tests:
@@ -13,6 +14,6 @@ def load_tests(tests_dir: str, contest: str, problem: str, reload_: bool,
 
     tests = get_tests(contest, problem)
 
-    local_tests.tests(tests_dir, contest, problem, tests)
+    local.save_tests(tests_dir, contest, problem, tests)
 
     return tests

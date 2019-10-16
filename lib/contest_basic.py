@@ -8,9 +8,9 @@ from lib.test import Test
 test_re = re.compile('<pre>([\s\S]*?)<\/pre>[\s\S]*?<pre>([\s\S]*?)<\/pre>')
 
 
-def load_tests(contest: str, problem: str) -> List[Test]:
+def load_tests(contest: str, problem: str, cookies: dict) -> List[Test]:
     session = requests.Session()
-    for name, val in {}.items():
+    for name, val in cookies.items():
         session.cookies.set(name, val)
 
     page = session.get(f'https://official.contest.yandex.ru/contest/{contest}/problems/{problem}').text

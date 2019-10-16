@@ -1,15 +1,14 @@
 import subprocess
 import sys
-from dataclasses import dataclass
 from time import time
 
 from lib.test import Test
 
 
-@dataclass
 class Result:
-    error_str: str
-    duration: float
+    def __init__(self, error_str: str, duration: float):
+        self.error_str = error_str
+        self.duration = duration
 
 
 def run_test(target: str, test: Test, time_limit: float) -> Result:
@@ -31,7 +30,7 @@ def run_test(target: str, test: Test, time_limit: float) -> Result:
     
     output_text = res.stdout.decode('utf-8').strip()
 
-    if output_text == test.output_text:
+    if output_text.strip() == test.output_text.strip():
         return Result('', duration)
 
     return Result(f'WA\nGot:\n{output_text}', duration)

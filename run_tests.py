@@ -29,5 +29,16 @@ def main():
     )
 
 
+def main2():
+    run_all(
+        target='...your program',
+        manual_tests_dir='./manual_tests',
+        google_sheet_url=COMMON_192_2_URL,
+        contest='...contest name',
+        problem='...problem name',
+        time_limit=2.0
+    )
+
+
 if __name__ == '__main__':
     main()

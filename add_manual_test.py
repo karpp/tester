@@ -1,5 +1,4 @@
 import argparse
-import sys
 from typing import List
 
 from lib.local import save_tests, load_tests
@@ -43,7 +42,7 @@ def iter_input_tests() -> List[Test]:
     while True:
         yield input_test()
             
-        if input('Вы хотите добавить еще? (y/n): ') != 'y'
+        if input('Вы хотите добавить еще? (y/n): ') != 'y':
             break
 
     print('Спасибо, что пользуетесь тестилкой!')
