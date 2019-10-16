@@ -7,4 +7,4 @@
 
 *Актуальный набор общих тестов находится [здесь](https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/).*
 
-*Если у Вас есть крутой тест и Вы хотите им поделиться со всеми, добавьте его [через форму](https://docs.google.com/spreadsheets/d/1ExOQ7X76lQ13e4fmqxPo0i_vS0qDOhMKgpjeJzV6amc/).*
+*Если у Вас есть крутой тест и Вы хотите им поделиться со всеми, добавьте его [через форму](https://forms.gle/Yvc21es4BxqZS8aG9/).*
