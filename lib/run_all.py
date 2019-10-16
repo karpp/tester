@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from lib import local, google_sheet
+from lib import contest_basic, google_sheet, local
 from lib.run_tests import run_tests
 
 
@@ -11,7 +11,10 @@ def print_result(text):
 
 
 def run_all(target, time_limit, manual_tests_dir, google_sheet_url, contest, problem):
-    label_tests_pairs = []
+    label_tests_pairs = [(
+        'Basic',
+        contest_basic.load_tests(contest, problem)
+    )]
 
     if manual_tests_dir:
         label_tests_pairs.append((
@@ -26,6 +29,7 @@ def run_all(target, time_limit, manual_tests_dir, google_sheet_url, contest, pro
         ))
 
     for label, tests in label_tests_pairs:
+        print(f'{label}, {len(tests)} tests:')
         if not run_tests(target, tests, time_limit, label):
             print_result('FAIL')
             return
